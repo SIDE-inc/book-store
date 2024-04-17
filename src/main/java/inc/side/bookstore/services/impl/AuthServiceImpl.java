@@ -8,25 +8,31 @@ import inc.side.bookstore.repository.UserRepository;
 import inc.side.bookstore.response.AuthenticationResponse;
 import inc.side.bookstore.security.JwtService;
 import inc.side.bookstore.services.AuthService;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
+import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
+
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
-
     private final JwtService jwtService;
-
     private final AuthenticationManager authenticationManager;
+    private final Validator validator;
+
+
     @Override
     public AuthenticationResponse registerUser(RegisterDto userDto) {
-        System.out.println("..............");
+
         var user = User
                 .builder()
                 .firstname(userDto.getFirstname())
@@ -36,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .role(Role.USER)
                 .build();
+
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();

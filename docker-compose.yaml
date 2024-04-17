@@ -5,9 +5,10 @@ services:
     environment:
       POSTGRES_USER: side
       POSTGRES_PASSWORD: admin
-      PGDATA: /data/postgres
+      PGDATA: /data/postgres/bookstore
+      POSTGRES_DB: bookstore
     volumes:
-      - db:/data/postgres
+      - db:/data/postgres/bookstore
     ports:
       - "5332:5432"
     networks:

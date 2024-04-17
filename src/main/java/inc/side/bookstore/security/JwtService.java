@@ -18,11 +18,12 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     // Fetch SECRET KEY and EXPIRATION TIME from configuration
-    @Value("${jwt-secret-key}")
-    private static String SECRET_KEY;
+    @Value("${app.jwt-secret-key}")
+    private String SECRET_KEY;
 
     @Value("${app.jwt-expiration}")
-    private static Long EXPIRATION_TIME;
+    private Long EXPIRATION_TIME;
+
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
