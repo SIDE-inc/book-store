@@ -2,7 +2,10 @@ package inc.side.bookstore.entity;
 
 import inc.side.bookstore.entity.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,17 +19,34 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@Valid
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue
     private Long id;
+    @NotNull(message = "Firstname should not be empty")
+    @NotEmpty(message = "Firstname should not be empty")
     private String firstname;
+
+    @NotEmpty(message = "Lastname should not be empty")
+    @NotNull(message = "Lastname should not be empty")
     private String lastname;
+
+    @Email(message = "Enter valid email")
+    @NotEmpty(message = "Email should not be empty")
+    @NotNull(message = "Email should not be empty")
     private String email;
-    @Column(nullable = false)
+
+    @NotEmpty(message = "Password should not be empty")
+    @NotNull(message = "Password should not be empty")
     private String password;
-    @Column(nullable = false, unique = true)
+
+    @Column(unique = true)
+    @NotEmpty(message = "Username should not be empty")
+    @NotNull(message = "Username should not be empty")
     private String username;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

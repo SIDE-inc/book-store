@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:54247/bookstore
+    url: jdbc:postgresql://localhost:5332/bookstore
     username: side
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -13,6 +13,10 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+app:
+  jwt-secret-key: c32d370fc131db02fcc85ca80dfca531f53b4e9911cf07117743fa12f2acb392
+  jwt-expiration: 3600000
 
 #logging:
 #  level:
